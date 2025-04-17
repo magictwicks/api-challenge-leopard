@@ -29,8 +29,13 @@ def get_airplane_data():
     with data_lock:
         return jsonify(airplane_data) 
 
+@app.route("/update")
+def update_airplane_data():
+    update_data()
+    return jsonify("updated"), 200
+
 if __name__ == "__main__":
-    updater_thread = threading.Thread(targer=update_data, daemon=True)
+    updater_thread = threading.Thread(target=update_data, daemon=True)
     updater_thread.start()
 
     app.run(debug=True)
